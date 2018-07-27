@@ -7,7 +7,10 @@ import 'simplemde/dist/simplemde.min.css'
 
 export default class AddPost extends Component {
   componentDidMount() {
-    new SimpleMDE({ element: document.getElementById("editor") })
+    this.editor = new SimpleMDE({ element: document.getElementById("editor") })
+  }
+  handleSubmit() {
+    console.log(this.editor.markdown(this.editor.value()))
   }
   render() {
     return (
@@ -26,7 +29,7 @@ export default class AddPost extends Component {
           <div>文章内容:</div>
           <textarea id="editor" cols="30" rows="10"></textarea>
         </div>
-        <Button type="primary">提交</Button>
+        <Button type="primary" onClick={this.handleSubmit.bind(this)}>提交</Button>
       </div>
     )
   }
