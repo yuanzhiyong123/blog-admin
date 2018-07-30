@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, Select } from 'antd';
 import SimpleMDE from 'simplemde';
 
 import './addPost.css';
 import 'simplemde/dist/simplemde.min.css'
+
+const Option = Select.Option;
 
 export default class AddPost extends Component {
   componentDidMount() {
@@ -23,6 +25,15 @@ export default class AddPost extends Component {
         <div className="post-title item">
           <label>
             文章描述:<Input placeholder="请输入文章标题" />
+          </label>
+        </div>
+        <div className="post-title item">
+          <label>
+            文章类型: 
+            <Select defaultValue="前端技术" style={{width: 100}}>
+              <Option value="前端技术">前端技术</Option>
+              <Option value="生活趣事">生活趣事</Option>
+            </Select>
           </label>
         </div>
         <div >
