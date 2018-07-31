@@ -10,3 +10,17 @@
 .logout{
   cursor: pointer;
 }
+.home-silder{
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+}
+.home-content{
+  position: absolute;
+  top: 64px;
+  bottom: 0px;
+  left: 200px;
+  right: 0;
+  overflow-y: scroll;
+  background:#f0f2f5;
+}

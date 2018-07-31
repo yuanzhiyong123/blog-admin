@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addCount } from '../../redux/text.redux';
-import { Button, Layout, Menu, Icon } from 'antd';
-import { Route, Switch} from 'react-router-dom';
+import { Row, Col, Layout, Menu, Icon } from 'antd';
+import { Route, Switch } from 'react-router-dom';
 import AddPost from '../../components/add-post/addPost';
 import PostList from '../../components/post-list/postList';
 
@@ -15,15 +15,15 @@ const { SubMenu, Item } = Menu;
 class Home extends React.Component {
   constructor() {
     super();
-    this.state={
+    this.state = {
       isLogin: true
     };
   }
   handleSubChange(e) {
     console.log(e);
-    if(e.key==='1') {
+    if (e.key === '1') {
       this.props.history.push('/addpost');
-    }else if(e.key === '2') {
+    } else if (e.key === '2') {
       this.props.history.push('/postlist');
     }
   }
@@ -54,19 +54,23 @@ class Home extends React.Component {
             </div>
           </Header>
           <Layout>
-            <Sider theme="light" >
-              <Menu theme="light" mode="inline" onClick={this.handleSubChange.bind(this)}>
+            <Sider theme="light" theme="dark" className="home-silder">
+              <Menu theme="dark" mode="inline" onClick={this.handleSubChange.bind(this)}>
                 <SubMenu key="sub1" title={<span><Icon type="mail" />文章管理</span>}>
                   <Item key="1"><Icon type="mail" />发表文章</Item>
                   <Item key="2"><Icon type="mail" />文章列表</Item>
                 </SubMenu>
               </Menu>
             </Sider>
-            <Content>
-              <Switch>
-                <Route path="/postlist" component={PostList} />
-                <Route path="/addpost" component={AddPost} />
-              </Switch>
+            <Content className="home-content">
+              <Row>
+                <Col span={24}>
+                  <Switch>
+                    <Route path="/postlist" component={PostList} />
+                    <Route path="/addpost" component={AddPost} />
+                  </Switch>
+                </Col>
+              </Row>
             </Content>
           </Layout>
         </Layout>
