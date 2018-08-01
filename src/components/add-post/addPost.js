@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Button, Select, Upload, Icon, Row, Col } from 'antd';
 import SimpleMDE from 'simplemde';
+import axios from 'axios';
 
 import './addPost.css';
 import 'simplemde/dist/simplemde.min.css'
@@ -33,7 +34,15 @@ export default class AddPost extends Component {
     });
   }
   handleSubmit() {
-    console.log(this.state);
+    axios.post('/blog/post/addpost', {
+      title:this.state.title,
+      descript:this.state.descript,
+      content:this.state.content,
+      type: this.state.type,
+      image: this.state.image
+    }).then(res=> {
+      console.log(res);
+    })
   }
   upLoadImg(e) {
     console.log(e.fileList);
@@ -94,7 +103,7 @@ export default class AddPost extends Component {
           <Col span={10}>
             <span>添加标题图片：</span>
             <Upload
-              action="/upload"
+              action="/blog/post/upload"
               name="imageFile"
               listType="picture-card"
               fileList={this.state.fileList}
