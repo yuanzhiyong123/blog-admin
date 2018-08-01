@@ -12,21 +12,55 @@ export default class AddPost extends Component {
     super(props);
     this.state = {
       fileList: [],
+      title: '',
+      descript:'',
+      content:'',
+      type: '前端技术',
+      image: ''
     };
+    this.handleTitleChange=this.handleTitleChange.bind(this);
+    this.handleDescChange=this.handleDescChange.bind(this);
+    this.handleTypeChange=this.handleTypeChange.bind(this);
   }
   componentDidMount() {
-    this.editor = new SimpleMDE({ element: document.getElementById("editor") })
+    this.editor = new SimpleMDE({ element: document.getElementById("editor") });
+    const _this = this;
+    //获取markdown的html格式内容
+    this.editor.codemirror.on("change", function(){
+      _this.setState({
+        content: _this.editor.markdown(_this.editor.value())
+      });
+    });
   }
   handleSubmit() {
-    console.log(this.editor.markdown(this.editor.value()))
+    console.log(this.state);
   }
   upLoadImg(e) {
+    console.log(e.fileList);
     this.setState({
-      fileList: e.fileList
+      fileList: e.fileList,
+      image: e.fileList[0]?e.fileList[0].name:''
     });
   }
   handleRemoveImg(e) {
-    console.log(e);
+    this.setState({
+      image: ''
+    });
+  }
+  handleTitleChange(e) {
+    this.setState({
+      title: e.target.value
+    });
+  }
+  handleDescChange(e) {
+    this.setState({
+      descript: e.target.value
+    });
+  }
+  handleTypeChange(val) {
+    this.setState({
+      type: val
+    });
   }
   render() {
     const uploadButton = (
@@ -39,18 +73,18 @@ export default class AddPost extends Component {
       <div className="add-post">
         <div className="post-title item">
           <label>
-            文章标题:<Input placeholder="请输入文章标题" />
+            文章标题:<Input placeholder="请输入文章标题" onChange={this.handleTitleChange} />
           </label>
         </div>
         <div className="post-title item">
           <label>
-            文章描述:<Input placeholder="请输入文章标题" />
+            文章描述:<Input placeholder="请输入文章标题" onChange={this.handleDescChange} />
           </label>
         </div>
         <div className="post-title item">
           <label>
             文章类型: <br />
-            <Select defaultValue="前端技术" style={{ width: 100 }}>
+            <Select defaultValue={this.state.type} style={{ width: 100 }} onChange={this.handleTypeChange} >
               <Option value="前端技术">前端技术</Option>
               <Option value="生活趣事">生活趣事</Option>
             </Select>
@@ -60,7 +94,8 @@ export default class AddPost extends Component {
           <Col span={10}>
             <span>添加标题图片：</span>
             <Upload
-              action="/posts/"
+              action="/upload"
+              name="imageFile"
               listType="picture-card"
               fileList={this.state.fileList}
               onChange={this.upLoadImg.bind(this)}
