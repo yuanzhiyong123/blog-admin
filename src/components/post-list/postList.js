@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Table, Icon, Divider, Row, Col } from 'antd';
+import { Table, Divider, Row, Col } from 'antd';
 
 export default class PostList extends Component {
   render() {
@@ -19,8 +19,8 @@ export default class PostList extends Component {
       title: '操作',
       key: 'action',
       render: (text, record) => {
-        // console.log(text);
-        console.log(record);
+        // // console.log(text);
+        // console.log(record);
         return (
           <span>
             <a href="javascript:;">删除</a>

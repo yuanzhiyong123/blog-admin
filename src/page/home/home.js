@@ -28,7 +28,6 @@ class Home extends React.Component {
     }
   }
   render() {
-    console.log(this.props);
     const login = (
       <div className="user-login">
         <span className="login">
